@@ -13,10 +13,10 @@ margin = Entity(
 )
 
 water = Entity(
-    moodel="plane",
+    model="plane",
     color=color.azure,
-    scale=(100, 1, 40),
-    position=(0, 0, -15),
+    scale=(100, 1, 100),
+    position=(0, 0.3, 55),
 )
 
 deck = Entity(
