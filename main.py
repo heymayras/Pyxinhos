@@ -1,16 +1,53 @@
-# This is a sample Python script.
+from ursina import *
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+app = Ursina()
+window.title = "Pyxinhos"
+
+Sky()
+
+margin = Entity(
+    model="cube",
+    color=color.green,
+    scale=(100, 1, 40),
+    position=(0,0, -15),
+)
+
+water = Entity(
+    moodel="plane",
+    color=color.azure,
+    scale=(100, 1, 40),
+    position=(0, 0, -15),
+)
+
+deck = Entity(
+    model="cube",
+    color=color.brown,
+    scale=(3, 0.3, 10),
+    position=(0, 0.85, 4),
+)
+
+class Jogador(Entity):
+    def __init__(self):
+        super().__init__(position=(0, 2.5, 0))
+        camera.parent = self
+        camera.position = (0, 0, 0)
+        camera.rotation = (0, 0, 0)
+        camera.fov = 90
+        self.sensibilidade = 40
+        mouse.locked = True
+
+    def update(self):
+        self.rotation_y += mouse.velocity[0] * self.sensibilidade
+        camera.rotation_x -= mouse.velocity[1] * self.sensibilidade
+        camera.rotation_x = clamp(camera.rotation_x, -80, 80)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+jogador = Jogador()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def input(key):
+    if key == "escape":
+        application.quit()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+app.run()
